@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Widget</class>
+ <widget class="QWidget" name="Widget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>688</width>
+    <height>243</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Chat-plusplus-Server</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background: qlineargradient(x1:1, y1:1, x2:0, y2:0, stop:0 #41AEC6, stop:1 #94A940);</string>
+  </property>
+  <widget class="QPushButton" name="OpenServer">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>50</y>
+     <width>131</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+     <weight>75</weight>
+     <italic>false</italic>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+	font: 10pt;
+	font-weight: bold;
+	color: rgb(249, 249, 249);
+	background-color: rgb(0, 0, 0, 0);
+	border: 2px solid;
+	border-color: rgb(248, 248, 248);
+	border-radius: 7px;
+}
+
+QPushButton::disabled {
+	color: rgb(220, 220, 220);
+	border-color: rgb(219, 219, 219);
+}</string>
+   </property>
+   <property name="text">
+    <string>开启服务</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="ChangePhone">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>50</y>
+     <width>161</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+     <weight>75</weight>
+     <italic>false</italic>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+	font: 10pt;
+	font-weight: bold;
+	color: rgb(249, 249, 249);
+	background-color: rgb(0, 0, 0, 0);
+	border: 1.5px solid;
+	border-color: rgb(248, 248, 248);
+	border-radius: 7px;
+}</string>
+   </property>
+   <property name="text">
+    <string>管理号码列表</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="CloseServer">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>50</y>
+     <width>161</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+     <weight>75</weight>
+     <italic>false</italic>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+	font: 10pt;
+	font-weight: bold;
+	color: rgb(249, 249, 249);
+	background-color: rgb(0, 0, 0, 0);
+	border: 1.5px solid;
+	border-color: rgb(248, 248, 248);
+	border-radius: 7px;
+}
+
+QPushButton::disabled {
+	color: rgb(220, 220, 220);
+	border-color: rgb(219, 219, 219);
+}</string>
+   </property>
+   <property name="text">
+    <string>关闭服务</string>
+   </property>
+  </widget>
+  <widget class="QTextBrowser" name="LogShow">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>120</y>
+     <width>561</width>
+     <height>101</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font-size: 10pt;</string>
+   </property>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

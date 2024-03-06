@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/font">
+        <file>font/LanTing.ttf</file>
+    </qresource>
+</RCC>
