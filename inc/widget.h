@@ -35,6 +35,7 @@ private slots:
     bool closeServer();
     void newConnectionHandle();
     void handleMsg(QString msg);
+    void sendMessage(QStringList cmds);
     void initDataBase();
     bool checkFromDB(QString phone, QString password);
     void closeEvent(QCloseEvent *event);

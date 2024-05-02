@@ -17,7 +17,7 @@ Widget::Widget(QWidget *parent) :
 
     ui->CloseServer->setEnabled(false);
 
-    //不错过最新日志
+    //更新日志时指针移动到末尾
     connect(ui->LogShow, &QTextBrowser::textChanged, [&](){
         ui->LogShow->moveCursor(QTextCursor::End);
     });
@@ -68,10 +68,14 @@ bool Widget::closeServer()
 
 void Widget::newConnectionHandle()
 {
+    socket->disconnect();
     socket = server->nextPendingConnection();
     connect(socket, &QTcpSocket::readyRead, [&](){
         Zy::mSleep(300);
-        handleMsg(socket->readAll());
+        QString data = socket->readAll();
+        qDebug() << "data = " << data;
+        handleMsg(data);
+        data.clear();
     });
 }
 
@@ -82,6 +86,12 @@ void Widget::handleMsg(QString msg)
         socket->waitForBytesWritten();  \
     }
 
+    qDebug() << sockets.keys();
+    for (auto i = sockets.begin(); i != sockets.end(); ++i) {
+        qDebug() << i.key();
+        qDebug() << i.value();
+    }
+
     QStringList cmd = msg.split("#");
 
     if (cmd[0] == "login") {
@@ -90,35 +100,29 @@ void Widget::handleMsg(QString msg)
             SOCKET_WRITE("00000001");
         }
         else SOCKET_WRITE("00000000");
+        return;
     }
-    else if (cmd[0] == "logining") {
+    if (cmd[0] == "logining") {
         qDebug() << "接收到logining信号";
         ui->LogShow->append(QString("%1\t账号%2已登录")
                             .arg(QDateTime::currentDateTime().toString(TIME_FORMAT))
                             .arg(cmd[1]));
         sockets.insert(cmd[1], socket);
+        return;
     }
-    else if (cmd[0] == "exit") {
+    if (cmd[0] == "exit") {
         qDebug() << "接收到exit信号";
         ui->LogShow->append(QString("%1\t账号%2已退出")
                             .arg(QDateTime::currentDateTime().toString(TIME_FORMAT))
                             .arg(cmd[1]));
         sockets.remove(cmd[1]);
+        return;
     }
-    else if (cmd[0] == "send") {
-        qDebug() << "接收到send信号";
-        //设置为接收人的socket
-        socket = sockets.value(cmd[2]);
-        if (socket != nullptr) {
-            //发送标志
-            SOCKET_WRITE("msg#");
-            //发送发送人
-            SOCKET_WRITE(QString("%1#").arg(cmd[1]).toStdString().c_str());
-            //发送内容
-            SOCKET_WRITE(QString(cmd[3]).toStdString().c_str());
-        }
+    if (cmd[0] == "send") {
+        sendMessage(cmd);
+        return;
     }
-    else if (cmd[0] == "getmyfri") {
+    if (cmd[0] == "getmyfri") {
         qDebug() << "接收到getmyfri信号";
         //设置为接收人的socket
         socket = sockets.value(cmd[1]);
@@ -132,6 +136,23 @@ void Widget::handleMsg(QString msg)
                 friend_list.append("z");
             }
             SOCKET_WRITE(friend_list.toStdString().c_str());
+        }
+        return;
+    }
+}
+
+void Widget::sendMessage(QStringList cmds) {
+    if (cmds[0] == "send") {
+        qDebug() << "接收到send信号";
+        //设置为接收人的socket
+        socket = sockets.value(cmds[2]);
+        if (socket != nullptr) {
+            //发送标志
+            SOCKET_WRITE("msg#");
+            //发送发送人
+            SOCKET_WRITE(QString("%1#").arg(cmds[1]).toStdString().c_str());
+            //发送内容
+            SOCKET_WRITE(QString(cmds[3]).toStdString().c_str());
         }
     }
 }
