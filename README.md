@@ -2,7 +2,7 @@
 
 
 ## 介绍
-**[Chat-plusplus](https://github.com/Zhiyesh/Chat-plusplus) 的服务端。**
+**多线程服务端，用于 [Chat-plusplus](https://github.com/Zhiyesh/Chat-plusplus) 。**
 
 
 ## 使用方式
