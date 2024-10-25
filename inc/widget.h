@@ -2,18 +2,18 @@
 #define WIDGET_H
 
 #include <QWidget>
-#include "inc/listenip.h"
-#include "inc/sleep.h"
 #include <QTcpServer>
 #include <QTcpSocket>
+#include <QThread>
 #include <QMap>
 #include <QDateTime>
 #include <QCloseEvent>
 #include <QSqlDatabase>
 #include <QSqlQuery>
-#include <QDebug>
 
-#define TIME_FORMAT  "MM.dd.yyyy hh:mm:ss"
+#include "inc/listenip.h"
+#include "inc/sleep.h"
+#include "inc/socketthread.h"
 
 #define USE_DATABASE "QSQLITE"
 #define DATABASE_PATH "./ChatppServer.db"
@@ -34,19 +34,18 @@ private slots:
     void openServer();
     bool closeServer();
     void newConnectionHandle();
-    void handleMsg(QString msg);
-    void sendMessage(QStringList cmds);
     void initDataBase();
-    bool checkFromDB(QString phone, QString password);
     void closeEvent(QCloseEvent *event);
 
 private:
     Ui::Widget *ui;
-    QTcpServer *server;
-    QTcpSocket *socket;
+
     QMap<QString, QTcpSocket*> sockets;
-    QSqlDatabase db;
     QSqlQuery query;
+    QTcpServer *server;
+    QSqlDatabase db;
+
+    friend class SocketThread;
 };
 
 #endif // WIDGET_H

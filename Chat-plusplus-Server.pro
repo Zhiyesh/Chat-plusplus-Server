@@ -27,11 +27,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp \
     src/widget.cpp \
-    src/sleep.cpp
+    src/sleep.cpp \
+    src/socketthread.cpp
 
 HEADERS  += inc/widget.h \
     inc/sleep.h \
-    inc/listenip.h
+    inc/listenip.h \
+    inc/socketthread.h
 
 FORMS    += ui/widget.ui
 
